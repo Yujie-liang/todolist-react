@@ -16,7 +16,8 @@
 - Users can add todos to the list<br>
 - Users can check todos when they are done<br>
 - Users can delete todos from the list<br>
-- User can double click the todo to edit it<br>
+- Users can double click the todo to edit it<br>
+- Users can see how many todos are there on the list, including both done and undone<br>
 
 ## :diamond_shape_with_a_dot_inside: Installation
 
