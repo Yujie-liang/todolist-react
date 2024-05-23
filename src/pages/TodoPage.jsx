@@ -1,45 +1,67 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Footer, Header, TodoCollection, TodoInput } from 'components';
-
+import { getTodos, addTodos } from '../api/todos';
 const TodoPage = () => {
   const [inputValue, setInputValue] = useState('');
-  const [todos, setTodos] = useState(dummyTodos);
+  const [todos, setTodos] = useState([]);
 
   const handleChange = (value) => {
     setInputValue(value);
   };
 
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
     if (inputValue.length === 0) {
       return;
     }
-    setTodos((prevTodos) => {
-      return [
-        ...prevTodos,
-        {
-          id: Math.random() * 100,
-          title: inputValue,
-          isDone: false,
-        },
-      ];
-    });
-    setInputValue(''); //新增完清空
+    // call API
+    try {
+      const data = await addTodos({
+        title: inputValue,
+        isDone: false,
+      });
+      // update todos
+      setTodos((prevTodos) => {
+        return [
+          ...prevTodos,
+          {
+            id: data.id,
+            title: data.title,
+            isDone: data.isDone,
+            isEdit: false,
+          },
+        ];
+      });
+      setInputValue(''); //新增完清空
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleKeyDown = () => {
+  const handleKeyDown = async () => {
     if (inputValue.length === 0) {
       return;
     }
-    setTodos((prevTodos) => {
-      return [
-        ...prevTodos,
-        {
-          id: Math.random() * 100,
-          title: inputValue,
-          isDone: false,
-        },
-      ];
-    });
-    setInputValue(''); //新增完清空
+    // call API
+    try {
+      const data = await addTodos({
+        title: inputValue,
+        isDone: false,
+      });
+      // update todos
+      setTodos((prevTodos) => {
+        return [
+          ...prevTodos,
+          {
+            id: data.id,
+            title: data.title,
+            isDone: data.isDone,
+            isEdit: false,
+          },
+        ];
+      });
+      setInputValue(''); //新增完清空
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleToggleDone = (id) => {
     setTodos((prevTodos) => {
@@ -87,6 +109,18 @@ const TodoPage = () => {
       return prevTodos.filter((todo) => todo.id !== id);
     });
   };
+  // before rendering
+  useEffect(() => {
+    const getTodosAsync = async () => {
+      try {
+        const todos = await getTodos();
+        setTodos(todos.map((todo) => ({ ...todo, isEdit: false })));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTodosAsync();
+  }, []);
   return (
     <div>
       TodoPage
