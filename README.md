@@ -8,7 +8,7 @@
 <p>
 A simple website for managing your todo list with login and registering functions. `JSON Web Tokens (JWT)` was used for secure user verification. If the token passes the verification, website should be redirect to the todo page, otherwise, it should stays on the login page. The token is stored in `localStorage` and managed by `context`, so that the authentication can be checked on every page easily. CRUD on database operation are accomplished in this todo list website.
 </p>
-<p>Feel free to give it a try: <strong>https://yujie-liang.github.io/todolist-react/</strong><br>
+<p>Feel free to give it a try: <strong>https://yujie-liang.github.io/todolist-react/login</strong><br>
 You can login with the username: <strong>sylvia</strong> & password: <strong>123</strong>, or register one yourself.
 </p>
 </div>
