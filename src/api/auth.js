@@ -8,7 +8,6 @@ export const login = async ({ username, password }) => {
       password,
     });
     const { authToken } = data;
-    console.log(data);
     if (authToken) {
       // 若登入成功，帶上success: true
       return { success: true, ...data };
